@@ -9,7 +9,7 @@ def get_main_args():
     arg("--seed", type=int, default=26012022, help="Random Seed")
     arg("--generator", default=torch.Generator().manual_seed(26012022), help='Train Validate Predict Seed')
     arg("--s1_dir", type=str, default='../input/c2smsfloods/c2smsfloods/c2smsfloods_v1_source_s1/*', help="Sentinel 1 Source Data Directory")
-    arg("--resize_shape", type=tuple, default=(480, 480), help="Shape of the Resized Image")
+    arg("--resize_to", type=tuple, default=(480, 480), help="Shape of the Resized Image")
     arg("--crop_shape", type=int, default=256, help="Shape of the cropped Image")
     arg("--batch_size", type=int, default=15, help="batch size")
     arg("--num_workers", type=int, default=2, help="Number of DataLoader Workers")

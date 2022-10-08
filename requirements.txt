@@ -1,0 +1,13 @@
+rasterio
+numpy
+matplotlib
+torch
+scikit-image
+torchvision
+monai
+segmentation_models_pytorch
+torchmetrics
+pytorch-lightning 
+pandas
+albumentations
+mlflow

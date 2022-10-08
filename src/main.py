@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings("ignore")
 
 from utils import *
 from dataloader import *

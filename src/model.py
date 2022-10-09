@@ -51,10 +51,14 @@ class Unet(pl.LightningModule):
         self.log("dice_mean", dice_mean)
         self.log("Val_Loss", loss.item())   
         
-#         mlflow.log_metrics({
-#         "dice_mean": dice_mean,
-#         "Val_Loss": loss.item()
-#         })
+        mlflow.log_metrics({
+        "dice_mean": dice_mean,
+        "val_Loss": loss.item()
+        })
+        
+        mlflow.log_params({
+        "epochs": self.current_epoch
+        })
         
         torch.cuda.empty_cache()
         gc.collect()        

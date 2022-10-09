@@ -57,7 +57,8 @@ class Unet(pl.LightningModule):
         })
         
         mlflow.log_params({
-        "epochs": self.current_epoch
+        "epochs": self.current_epoch,
+        "LR": self.args.learning_rate
         })
         
         torch.cuda.empty_cache()

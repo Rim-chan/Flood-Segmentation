@@ -17,8 +17,6 @@ import mlflow.pytorch
 
 
 if __name__ == "__main__":
-  
-  mlflow.pytorch.autolog()
   args = get_main_args()
   transformations = A.Compose([A.Resize(*args.resize_to),
                                A.RandomRotate90(),

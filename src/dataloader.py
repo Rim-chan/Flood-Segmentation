@@ -33,9 +33,9 @@ class FloodDst(Dataset):
 
 
 class FloodDataModule(LightningDataModule):
-    def __init__(self, config, train_dataset, val_dataset):
+    def __init__(self, args, train_dataset, val_dataset):
         super().__init__()
-        self.config = config
+        self.args = args
         self.train_dataset = train_dataset
         self.val_dataset = val_dataset
     
@@ -44,12 +44,12 @@ class FloodDataModule(LightningDataModule):
         self.valid_dataset, self.test_dataset = random_split(self.val_dataset,
                                                              [math.floor(0.99*len(self.val_dataset)),
                                                               math.ceil(0.01*len(self.val_dataset))],
-                                                              generator=self.config.generator)
+                                                              generator=self.args.generator)
     
     def train_dataloader(self):
         return DataLoader(self.train_dataset,
-                          batch_size=self.config.batch_size, 
-                          num_workers=self.config.num_workers,
+                          batch_size=self.args.batch_size, 
+                          num_workers=self.args.num_workers,
                           shuffle=True,
                           pin_memory=True,
                           drop_last=True)
@@ -57,15 +57,15 @@ class FloodDataModule(LightningDataModule):
 
     def val_dataloader(self):
         return DataLoader(self.valid_dataset,
-                          batch_size=self.config.batch_size, 
-                          num_workers=self.config.num_workers,
+                          batch_size=self.args.batch_size, 
+                          num_workers=self.args.num_workers,
                           pin_memory=False,
                           drop_last=False)
     
     
     def predict_dataloader(self):
         return DataLoader(self.test_dataset,
-                          batch_size=self.config.batch_size, 
-                          num_workers=self.config.num_workers,
+                          batch_size=self.args.batch_size, 
+                          num_workers=self.args.num_workers,
                           pin_memory=False,
                           drop_last=False)

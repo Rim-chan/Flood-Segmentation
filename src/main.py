@@ -56,7 +56,7 @@ if __name__ == "__main__":
                     profiler='simple',
                     detect_anomaly=True)
   
-  with mlflow.start_run(experiment_id=0):
+  with mlflow.start_run(experiment_id=0, run_name='mlflow_RFCC_test'):
     #train the model
    if args.exec_mode == 'train':
        trainer.fit(model, dm)

@@ -13,9 +13,12 @@ from pytorch_lightning import Trainer
 import os
 mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
 
+import mlflow.pytorch
+
 
 if __name__ == "__main__":
   
+  mlflow.pytorch.autolog()
   args = get_main_args()
   transformations = A.Compose([A.Resize(*args.resize_to),
                                A.RandomRotate90(),
@@ -58,6 +61,10 @@ if __name__ == "__main__":
   
   with mlflow.start_run(experiment_id=args.experiment_id, run_name=args.run_name):
     #train the model
+    
+#     with mlflow.start_run() as run:
+#     trainer.fit(mnist_model, train_loader)
+    
    if args.exec_mode == 'train':
        trainer.fit(model, dm)
    else:

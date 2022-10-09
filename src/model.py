@@ -38,12 +38,7 @@ class Unet(pl.LightningModule):
         np.save(self.args.save_path + 'predictions.npy', preds_np)
         np.save(self.args.save_path + 'labels.npy', lbl_np) 
 
-    def training_epoch_end(self, outputs):
-        mlflow.log_params({
-        "epochs": self.current_epoch,
-        "LR": self.args.learning_rate
-        })
-        
+    def training_epoch_end(self, outputs):        
         torch.cuda.empty_cache()
         gc.collect()
         
@@ -61,7 +56,11 @@ class Unet(pl.LightningModule):
         "val_Loss": loss.item()
         })
         
-        
+        mlflow.log_params({
+        "batch_size": self.args.batch_size,
+        "LR": self.args.learning_rate
+        })
+  
         torch.cuda.empty_cache()
         gc.collect()        
         

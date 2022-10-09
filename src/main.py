@@ -57,7 +57,7 @@ if __name__ == "__main__":
                     detect_anomaly=True)
   
   with mlflow.start_run(experiment_id=0):
-    train the model
+    #train the model
    if args.exec_mode == 'train':
        trainer.fit(model, dm)
    else:

@@ -26,6 +26,9 @@ def get_main_args():
     arg("--dynUnet_kernels", type=list, default=[[3, 3]] * 5, help="DynUNet Kernels")
     arg("--dynUnet_strides", type=list, default=[[1, 1]] +  [[2, 2]] * 4, help="DynUNet Strides")
 
+    arg("--experiment_id", type=int, default=0, help='Mlflow Experiment ID')
+    arg("--run_name", type=str, default='mlflow', help='Mlflow Run Name')
+    
     arg("--exec_mode", type=str, default='train', help='Execution Mode')
     arg("--num_epochs", type=int, default=100, help="Number of Epochs")
     arg("--patience", type=int, default=4, help="Patience")    

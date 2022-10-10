@@ -45,6 +45,7 @@ class Unet(pl.LightningModule):
     def validation_epoch_end(self, outputs):
         dice, loss = self.dice.compute()
         dice_mean = dice.mean().item()
+        epochs = self.trainer.current_epoch+1
         self.dice.reset()
         
         print(f"Val_Performace: dice_mean {dice_mean:.3f}, Val_Loss {loss.item():.3f}")
@@ -59,7 +60,7 @@ class Unet(pl.LightningModule):
         mlflow.log_params({
         "batch_size": self.args.batch_size,
         "LR": self.args.learning_rate,
-#         "epochs":self.trainer.current_epoch+1
+        "epochs": epochs
         })
   
         torch.cuda.empty_cache()

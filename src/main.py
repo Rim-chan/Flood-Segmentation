@@ -58,8 +58,10 @@ if __name__ == "__main__":
                     detect_anomaly=True)
   
   with mlflow.start_run(experiment_id=args.experiment_id, run_name=args.run_name):
+    trainer.fit(model, dm)
+    trainer.predict(model, datamodule=dm, ckpt_path=args.ckpt_path)
     #train the model    
-    if args.exec_mode == 'train':
-      trainer.fit(model, dm)
-    else:
-      trainer.predict(model, datamodule=dm, ckpt_path=args.ckpt_path) 
+#     if args.exec_mode == 'train':
+#       trainer.fit(model, dm)
+#     else:
+#       trainer.predict(model, datamodule=dm, ckpt_path=args.ckpt_path) 

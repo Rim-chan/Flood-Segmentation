@@ -75,11 +75,11 @@ class Unet(pl.LightningModule):
     def build_model(self):
         self.model = DynUNet(
                     spatial_dims=2,
-                    in_channels=self.config.in_channels,
-                    out_channels=self.config.out_channels,
-                    kernel_size=self.config.dynUnet_kernels,
-                    strides=self.config.dynUnet_strides,
-                    upsample_kernel_size=self.config.dynUnet_strides[1:],
+                    in_channels=self.args.in_channels,
+                    out_channels=self.args.out_channels,
+                    kernel_size=self.args.dynUnet_kernels,
+                    strides=self.args.dynUnet_strides,
+                    upsample_kernel_size=self.args.dynUnet_strides[1:],
                     norm_name=("BATCH", {"affine": True}),
                     act_name=("leakyrelu", {"inplace": True, "negative_slope": 0.01})
          )

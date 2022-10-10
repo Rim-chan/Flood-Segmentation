@@ -15,6 +15,7 @@ class Unet(pl.LightningModule):
         self.build_model()
         self.loss = LossFlood()
         self.dice = DiceFlood(n_class=self.args.out_channels)
+        self.epochs = 0
         
     
     def training_step(self, batch, batch_idx):

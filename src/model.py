@@ -49,7 +49,7 @@ class Unet(pl.LightningModule):
         self.epochs += 1
         self.dice.reset()
         
-        print(f'[Epoch: {self.current_epoch}])
+        print(f'[Epoch: {self.current_epoch}]')
         print(f"Val_Performace: dice_mean {dice_mean:.3f}, Val_Loss {loss.item():.3f}")
         self.log("dice_mean", dice_mean)
         self.log("Val_Loss", loss.item())   

@@ -65,6 +65,8 @@ class Unet(pl.LightningModule):
         "LR": self.args.learning_rate
         })
   
+        mlflow.pytorch.log_model(self.model, "model")
+    
         torch.cuda.empty_cache()
         gc.collect()        
         

@@ -15,7 +15,6 @@ class Unet(pl.LightningModule):
         self.build_model()
         self.loss = LossFlood()
         self.dice = DiceFlood(n_class=self.args.out_channels)
-        self.epochs = 0
         
     
     def training_step(self, batch, batch_idx):
@@ -46,7 +45,6 @@ class Unet(pl.LightningModule):
     def validation_epoch_end(self, outputs):
         dice, loss = self.dice.compute()
         dice_mean = dice.mean().item()
-        self.epochs += 1
         self.dice.reset()
         
         print(f"Val_Performace: dice_mean {dice_mean:.3f}, Val_Loss {loss.item():.3f}")
@@ -61,8 +59,7 @@ class Unet(pl.LightningModule):
         
         mlflow.log_params({
         "batch_size": self.args.batch_size,
-        "LR": self.args.learning_rate,
-#         "epochs": self.epochs
+        "LR": self.args.learning_rate
         })
   
         torch.cuda.empty_cache()

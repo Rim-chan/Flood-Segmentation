@@ -62,7 +62,8 @@ class Unet(pl.LightningModule):
         
         mlflow.log_params({
         "batch_size": self.args.batch_size,
-        "LR": self.args.learning_rate
+        "LR": self.args.learning_rate,
+        "Optimizer": self.optimizer
         })
   
         mlflow.pytorch.log_model(self.model, "model")

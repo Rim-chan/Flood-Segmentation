@@ -61,8 +61,5 @@ if __name__ == "__main__":
     #train the model    
     if args.exec_mode == 'train':
       trainer.fit(model, dm)
-      mlflow.log_params(
-        "epochs", trainer.current_epoch+1
-        )
     else:
       trainer.predict(model, datamodule=dm, ckpt_path=args.ckpt_path) 

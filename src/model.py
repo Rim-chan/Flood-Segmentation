@@ -37,6 +37,9 @@ class Unet(pl.LightningModule):
         preds_np = preds.detach().cpu().numpy()
         np.save(self.args.save_path + 'predictions.npy', preds_np)
         np.save(self.args.save_path + 'labels.npy', lbl_np) 
+        
+        mlflow.log_artifact(self.args.save_path+ 'predictions.npy')
+        mlflow.log_artifact(self.args.save_path+ 'labels.npy')
 
     def training_epoch_end(self, outputs):        
         torch.cuda.empty_cache()

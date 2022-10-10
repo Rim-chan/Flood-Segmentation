@@ -18,7 +18,7 @@ import mlflow.pytorch
 
 if __name__ == "__main__":
   args = get_main_args()
-  transformations = A.Compose([A.Resize(*args.resize_to),
+  transformations = A.Compose([A.RandomCrop(*args.resize_to),
                                A.RandomRotate90(),
                                A.HorizontalFlip(),
                                A.VerticalFlip()])

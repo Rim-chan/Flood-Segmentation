@@ -17,7 +17,7 @@ class DiceFlood(Metric):
                 
         
     def compute(self):                        
-        return 100 * self.dice / self.steps, self.loss / self.steps
+        return 100 * self.dice / self.steps, self.loss / self.steps, self.steps
     
     def compute_stats_flood(self, p, y):
         scores = torch.zeros(self.n_class, device=p.device, dtype=torch.float32)

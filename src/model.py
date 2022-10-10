@@ -46,7 +46,7 @@ class Unet(pl.LightningModule):
     def validation_epoch_end(self, outputs):
         dice, loss = self.dice.compute()
         dice_mean = dice.mean().item()
-        self.epochs += self.trainer.current_epoch
+        self.epochs += 1
         self.dice.reset()
         
         print(f"Val_Performace: dice_mean {dice_mean:.3f}, Val_Loss {loss.item():.3f}")

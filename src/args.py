@@ -26,7 +26,7 @@ def get_main_args():
     arg("--dynUnet_kernels", type=list, default=[[3, 3]] * 5, help="DynUNet Kernels")
     arg("--dynUnet_strides", type=list, default=[[1, 1]] +  [[2, 2]] * 4, help="DynUNet Strides")
     arg("--encoder", type=str, default='resnet18', help="SMP-TIMM Encoder")
-    arg("--encoders", type=list, default=['resnet18', 'resnet34'] , help="SMP-TIMM Encoders")
+    arg("--encoders", type=list, default=['resnet34'] , help="SMP-TIMM Encoders")
     
     # 'timm-resnest14d', 'timm-resnest26d','timm-regnetx_002',
     # 'timm-regnetx_004', 'timm-regnetx_006', 'timm-gernet_s','timm-skresnet18',

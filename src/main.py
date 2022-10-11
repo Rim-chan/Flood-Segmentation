@@ -59,7 +59,7 @@ if __name__ == "__main__":
                     detect_anomaly=True)
   
 
-  with mlflow.start_run(experiment_id=args.experiment_id, run_name=args.run_id):
+  with mlflow.start_run(experiment_id=args.experiment_id, run_name=args.run_name):
     start_time = time.time()
     trainer.fit(model, dm)
     trainer.predict(model, datamodule=dm, ckpt_path=args.ckpt_path)

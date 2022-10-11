@@ -11,7 +11,7 @@ def get_main_args():
     arg("--s1_dir", type=str, default='../input/c2smsfloods/c2smsfloods/c2smsfloods_v1_source_s1/*', help="Sentinel 1 Source Data Directory")
     arg("--resize_to", type=tuple, default=(480, 480), help="Shape of the Resized Image")
     arg("--crop_shape", type=int, default=256, help="Shape of the cropped Image")
-    arg("--batch_size", type=int, default=20, help="batch size")
+    arg("--batch_size", type=int, default=15, help="batch size")
     arg("--num_workers", type=int, default=2, help="Number of DataLoader Workers")
     arg("--learning_rate", type=float, default=1e-4, help="Learning Rate")
     arg("--max_lr", type=float, default=1e-2, help="Max Learning Rate")

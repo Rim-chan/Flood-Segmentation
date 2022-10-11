@@ -58,11 +58,13 @@ if __name__ == "__main__":
                     profiler='simple',
                     detect_anomaly=True)
   
-  with mlflow.start_run(experiment_id=args.experiment_id, run_name=args.run_name):
-    start_time = time.time()
-    trainer.fit(model, dm)
-    trainer.predict(model, datamodule=dm, ckpt_path=args.ckpt_path)
-    mlflow.log_metric("execution_time", (time.time() - start_time))
+  for encoder in args.encoders:
+    args.encoder = encoder
+    with mlflow.start_run(experiment_id=args.experiment_id, run_name=args.encoder):
+      start_time = time.time()
+      trainer.fit(model, dm)
+      trainer.predict(model, datamodule=dm, ckpt_path=args.ckpt_path)
+      mlflow.log_metric("execution_time", (time.time() - start_time))
     #train the model    
 #     if args.exec_mode == 'train':
 #       trainer.fit(model, dm)

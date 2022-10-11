@@ -73,40 +73,36 @@ class Unet(pl.LightningModule):
         
         
     def build_model(self):
-        self.model = DynUNet(
-                    spatial_dims=2,
-                    in_channels=self.args.in_channels,
-                    out_channels=self.args.out_channels,
-                    kernel_size=self.args.dynUnet_kernels,
-                    strides=self.args.dynUnet_strides,
-                    upsample_kernel_size=self.args.dynUnet_strides[1:],
-                    norm_name=("BATCH", {"affine": True}),
-                    act_name=("leakyrelu", {"inplace": True, "negative_slope": 0.01})
-         )
+#         self.model = DynUNet(
+#                     spatial_dims=2,
+#                     in_channels=self.args.in_channels,
+#                     out_channels=self.args.out_channels,
+#                     kernel_size=self.args.dynUnet_kernels,
+#                     strides=self.args.dynUnet_strides,
+#                     upsample_kernel_size=self.args.dynUnet_strides[1:],
+#                     norm_name=("BATCH", {"affine": True}),
+#                     act_name=("leakyrelu", {"inplace": True, "negative_slope": 0.01})
+#          )
         
-#         self.model = smp.Unet(
-#             encoder_name="timm-mobilenetv3_small_minimal_100",  # resnet18/resnet34/mobilenet_v2/efficientnet-b7
-#             encoder_weights=None,  #"imagenet"
-#             in_channels=self.args.in_channels,
-#             classes=self.args.out_channels,
-#             decoder_attention_type=None)  #'scse'
- 
+        self.model = smp.Unet(
+            encoder_name=self.args.encoder,  
+            encoder_weights=None,  #"imagenet"
+            in_channels=self.args.in_channels,
+            classes=self.args.out_channels,
+            decoder_attention_type=None)  #'scse'
+        
+        
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(),
-                                lr=self.args.learning_rate,
-                                weight_decay=self.args.weight_decay)
+        optimizer = torch.optim.Adam(self.parameters(),
+                                     lr=self.args.learning_rate,
+                                     weight_decay=self.args.weigh_decay)
         
+       
+        scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer,
+                                                               mode="min",
+                                                               factor=0.3,
+                                                               patience=self.args.patience)
+
         
-        
-#     def configure_optimizers(self):
-#         optimizer = torch.optim.Adam(self.parameters(),
-#                                      lr=self.args.learning_rate,
-#                                      weight_decay=self.args.weight_decay)
-        
-#         scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer,
-#                                                         max_lr=self.args.max_lr,
-#                                                         epochs=self.args.num_epochs,
-#                                                         steps_per_epoch=len(self.train_dataloader))
-        
-#         scheduler = {"scheduler": scheduler, "step" : "step" } 
-#         return [optimizer], [scheduler]
+        scheduler = {"scheduler": scheduler, "step" : "step", "monitor": "Val_Loss" } 
+        return [optimizer], [scheduler]

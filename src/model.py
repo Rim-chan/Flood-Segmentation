@@ -90,7 +90,7 @@ class Unet(pl.LightningModule):
             encoder_weights=None,  #"imagenet"
             in_channels=self.args.in_channels,
             classes=self.args.out_channels,
-            decoder_attention_type=None)  #'scse'
+            decoder_attention_type='scse')  #'scse'
         
         
     def configure_optimizers(self):
